@@ -5,7 +5,8 @@ const pathFolderCopy = path.join(__dirname, 'files-copy');
 
 const copyDir = () => {
   return fsPromises
-    .mkdir(pathFolderCopy, { recursive: true })
+    .rm(pathFolderCopy, { recursive: true, force: true })
+    .then(() => fsPromises.mkdir(pathFolderCopy, { recursive: true }))
     .then(() => fsPromises.readdir(pathFolder, { withFileTypes: true }))
     .then((files) => {
       return Promise.all(
